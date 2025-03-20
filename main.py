@@ -20,13 +20,13 @@ llm = ChatGroq (
 #2. PARSER de saída : isso é necessário para que o sistema entenda a saída do modelo
 parser = StrOutputParser()
 
-#3. prompt template: usando LCEL - Chain the components
-generic_template = "Traduza o seguinte texto em {language}"
+#3 Prompt Template: Usando LCEL - Chain the Components
+generic_template = "Traduza a seguinte frase em {language}"
 
 prompt = ChatPromptTemplate.from_messages(
     [
-        {"system", generic_template},
-        {"user", "(text)"}
+        ("system", generic_template),
+        ("user", "{text}")
     ]
 )
 
@@ -36,7 +36,7 @@ prompt = ChatPromptTemplate.from_messages(
 chain = prompt | llm | parser
 
 #5. executar a chain
-print(chain.invoke({'language':'German', 'text':'hello'}))
+print(chain.invoke({'language':'German', 'text':'bom dia'}))
 
 
 #Criar o prompt (basico) ***** estudar sobre o prompt engineering (few-shot, zero-shot, one-shot, chain of thoughts)
